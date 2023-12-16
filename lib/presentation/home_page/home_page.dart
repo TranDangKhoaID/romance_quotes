@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:romance_quotes/app/constants/url_images.dart';
 import 'package:romance_quotes/presentation/home_page/component/banner_image_item.dart';
+import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,17 +16,44 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        margin: EdgeInsets.all(5),
-        padding: EdgeInsets.all(5),
-        child: Column(
-          children: [
-            banner(),
-            Column(
-              children: [],
-            ),
-          ],
+        padding: EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              banner(),
+              category(),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget category() {
+    return Column(
+      children: [
+        CategoryTile(
+          img:
+              'https://th.bing.com/th/id/OIP.d5qYPeR2mVuhAQT0gPfTrAHaHk?rs=1&pid=ImgDetMain',
+          title: 'Lãng Mạn',
+          subtitle: 'Tuyển tập 10001 lãng mạn',
+          onTap: () {},
+        ),
+        CategoryTile(
+          img:
+              'https://th.bing.com/th/id/R.b4cb61859eef62c13d2ecd06b15e382d?rik=D571YJhbRgcCpQ&pid=ImgRaw&r=0',
+          title: 'Cuộc sống',
+          subtitle: 'Cuộc sống, lạc quan, yêu đời',
+          onTap: () {},
+        ),
+        CategoryTile(
+          img:
+              'https://th.bing.com/th/id/OIP.brreJ4Xo55xbIp51rrI9fAHaFc?rs=1&pid=ImgDetMain',
+          title: 'Học tập',
+          subtitle: 'Học, học nữa, học mãi',
+          onTap: () {},
+        ),
+      ],
     );
   }
 
