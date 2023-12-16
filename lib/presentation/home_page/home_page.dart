@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:romance_quotes/app/constants/url_images.dart';
+import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
 import 'package:romance_quotes/presentation/home_page/component/banner_image_item.dart';
 import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
@@ -63,7 +65,13 @@ class HomePage extends StatelessWidget {
       child: Row(
         children: [
           BannerImageItem(
-            onTap: () {},
+            onTap: () {
+              Get.to(
+                () => DetailBanner(
+                  img: UrlImages.onepiece,
+                ),
+              );
+            },
             url: UrlImages.onepiece,
           ),
           BannerImageItem(
