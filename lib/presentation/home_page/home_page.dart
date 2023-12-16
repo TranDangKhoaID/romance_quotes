@@ -5,6 +5,7 @@ import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
 import 'package:romance_quotes/presentation/home_page/component/banner_image_item.dart';
 import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
+import 'package:romance_quotes/presentation/quotes/quotes_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -39,7 +40,9 @@ class HomePage extends StatelessWidget {
               'https://th.bing.com/th/id/OIP.d5qYPeR2mVuhAQT0gPfTrAHaHk?rs=1&pid=ImgDetMain',
           title: 'Lãng Mạn',
           subtitle: 'Tuyển tập 10001 lãng mạn',
-          onTap: () {},
+          onTap: () {
+            Get.to(() => QuotesPage());
+          },
         ),
         CategoryTile(
           img:
