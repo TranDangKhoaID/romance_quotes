@@ -21,12 +21,10 @@ class QuotesPage extends StatelessWidget {
           return QuotesItem(
             quotes: QuotesData.quotesList()[index],
             onFavorite: () {
-              AppPreferences.instance
-                  .saveFavorites(QuotesData.quotesList()[index]);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Thêm yêu thích thành công!'),
-                ),
+              QuotesController.instance.saveFavorites(
+                context,
+                QuotesData.quotesList()[index],
+                index,
               );
             },
             onCopy: () {

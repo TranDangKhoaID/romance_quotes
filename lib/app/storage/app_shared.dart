@@ -35,7 +35,7 @@ class AppPreferences {
     quotesJsonList?.add(quotesJson);
 
     // Lưu danh sách mới vào SharedPreferences
-    AppShared.share
+    await AppShared.share
         ?.setStringList(StorageKey.prefsKeyFavorites, quotesJsonList ?? []);
   }
 
