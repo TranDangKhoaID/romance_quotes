@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class TitleAppBar extends StatelessWidget {
+  final void Function()? onFavorites;
+  final void Function()? onSetting;
   const TitleAppBar({
     super.key,
+    required this.onFavorites,
+    required this.onSetting,
   });
 
   @override
@@ -11,7 +15,7 @@ class TitleAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        const Row(
           children: [
             CircleAvatar(
               backgroundColor: Colors.red,
@@ -33,19 +37,15 @@ class TitleAppBar extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {
-                print('Yêu thích');
-              },
-              icon: Icon(
+              onPressed: onFavorites,
+              icon: const Icon(
                 Icons.favorite,
                 color: Colors.red,
               ),
             ),
             IconButton(
-              onPressed: () {
-                print('Setting');
-              },
-              icon: Icon(
+              onPressed: onSetting,
+              icon: const Icon(
                 Icons.settings,
                 color: Colors.grey,
               ),

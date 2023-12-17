@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:romance_quotes/app/constants/url_images.dart';
 import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
+import 'package:romance_quotes/presentation/favorite/favorite_page.dart';
 import 'package:romance_quotes/presentation/home_page/component/banner_image_item.dart';
 import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
@@ -14,7 +15,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TitleAppBar(),
+        title: TitleAppBar(
+          onFavorites: () {
+            Get.to(() => FavoritePage());
+          },
+          onSetting: () {},
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),

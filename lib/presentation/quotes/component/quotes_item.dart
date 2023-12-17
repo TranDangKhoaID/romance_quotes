@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:romance_quotes/app/manager/color_manager.dart';
+import 'package:romance_quotes/domain/model/quotes.dart';
 
 class QuotesItem extends StatelessWidget {
+  final Quotes quotes;
+  final void Function()? onFavorite;
+  final void Function()? onCopy;
+  final void Function()? onShare;
   const QuotesItem({
     super.key,
+    required this.quotes,
+    required this.onFavorite,
+    required this.onCopy,
+    required this.onShare,
   });
 
   @override
@@ -15,32 +24,51 @@ class QuotesItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
-          color: Colors.red,
+          color: generateRandomColor(),
         ),
       ),
       child: Column(
         children: [
           Container(
             child: Text(
-              '“Cuộc sống có quyền đẩy bạn ngã nhưng ngồi đó than khóc hay đứng dậy và tiếp tục là quyền của bạn”.',
+              quotes.content,
               softWrap: true,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 17,
               ),
             ),
           ),
           Gap(10),
           Container(
+            alignment: Alignment.center,
+            child: Text(
+              quotes.author ?? '',
+              style: TextStyle(
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,
+                fontSize: 13,
+              ),
+            ),
+          ),
+          Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onFavorite,
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  ),
+                ),
+                Gap(10),
+                IconButton(
+                  onPressed: onCopy,
                   icon: Icon(Icons.copy),
                 ),
                 Gap(10),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onShare,
                   icon: Icon(Icons.share),
                 ),
               ],

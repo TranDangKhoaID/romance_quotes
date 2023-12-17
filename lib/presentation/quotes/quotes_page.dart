@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:romance_quotes/data/fake_data/quotes_data.dart';
 import 'package:romance_quotes/presentation/quotes/component/quotes_item.dart';
 
 class QuotesPage extends StatelessWidget {
@@ -12,12 +13,16 @@ class QuotesPage extends StatelessWidget {
         elevation: 0,
         title: Text('Lãng mạn'),
       ),
-      body: Column(
-        children: [
-          QuotesItem(),
-          QuotesItem(),
-          QuotesItem(),
-        ],
+      body: ListView.builder(
+        itemCount: QuotesData.quotesList().length,
+        itemBuilder: (context, index) {
+          return QuotesItem(
+            quotes: QuotesData.quotesList()[index],
+            onFavorite: () {},
+            onCopy: () {},
+            onShare: () {},
+          );
+        },
       ),
     );
   }
