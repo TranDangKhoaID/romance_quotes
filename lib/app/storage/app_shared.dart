@@ -24,9 +24,19 @@ class AppPreferences {
   static AppPreferences get instance => _instance ??= AppPreferences._();
 
   Future<void> saveFavorites(Quotes quotes) async {
+    // Lấy danh sách chuỗi từ SharedPreferences
+    final List<String>? quotesJsonList =
+        AppShared.share?.getStringList(StorageKey.prefsKeyFavorites);
+
     // Chuyển đối tượng Quotes thành chuỗi JSON trước khi lưu
     final String quotesJson = jsonEncode(quotes.toJson());
-    AppShared.share?.setStringList(StorageKey.prefsKeyFavorites, [quotesJson]);
+
+    // Thêm chuỗi JSON mới vào danh sách
+    quotesJsonList?.add(quotesJson);
+
+    // Lưu danh sách mới vào SharedPreferences
+    AppShared.share
+        ?.setStringList(StorageKey.prefsKeyFavorites, quotesJsonList ?? []);
   }
 
   List<Quotes> getFavorites() {
@@ -43,5 +53,10 @@ class AppPreferences {
       // Nếu danh sách không tồn tại, trả về một danh sách rỗng
       return [];
     }
+  }
+
+  Future<void> deleteAllFavorites() async {
+    // Xóa toàn bộ danh sách quotes từ SharedPreferences
+    AppShared.share?.remove(StorageKey.prefsKeyFavorites);
   }
 }

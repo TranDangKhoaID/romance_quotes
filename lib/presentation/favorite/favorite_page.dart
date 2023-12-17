@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:romance_quotes/app/manager/color_manager.dart';
+import 'package:romance_quotes/app/storage/app_shared.dart';
+import 'package:romance_quotes/data/fake_data/quotes_data.dart';
+import 'package:romance_quotes/presentation/favorite/component/favorite_item.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
@@ -12,10 +18,29 @@ class FavoritePage extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await AppPreferences.instance.deleteAllFavorites();
+              // Show a snackbar
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Xóa tất cả thành công'),
+                ),
+              );
+              Get.back();
+            },
             icon: Icon(Icons.delete_forever),
           ),
         ],
+      ),
+      body: ListView.builder(
+        itemCount: AppPreferences.instance.getFavorites().length,
+        itemBuilder: (context, index) {
+          return FavoriteItem(
+            index: index,
+            quotes: AppPreferences.instance.getFavorites()[index],
+            onTap: () {},
+          );
+        },
       ),
     );
   }
