@@ -3,7 +3,14 @@ import 'package:gap/gap.dart';
 
 class DetailBanner extends StatelessWidget {
   final String? img;
-  const DetailBanner({super.key, required this.img});
+  final void Function()? onDownload;
+  final void Function()? onShare;
+  const DetailBanner({
+    super.key,
+    required this.img,
+    required this.onDownload,
+    required this.onShare,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +18,11 @@ class DetailBanner extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: appBar(),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
-        child: Image.network(img.toString()),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+        child: Image.network(
+          img.toString(),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -24,16 +34,12 @@ class DetailBanner extends StatelessWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.download),
-          onPressed: () {
-            print("Tải xuống được nhấn");
-          },
+          onPressed: onDownload,
         ),
         Gap(10),
         IconButton(
           icon: Icon(Icons.share),
-          onPressed: () {
-            print("Chia sẻ được nhấn");
-          },
+          onPressed: onShare,
         ),
         Gap(10),
       ],

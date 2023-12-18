@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:romance_quotes/app/constants/url_images.dart';
+import 'package:romance_quotes/domain/model/category.dart';
+import 'package:romance_quotes/domain/model/quote_image.dart';
 import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
 import 'package:romance_quotes/presentation/favorite/favorite_page.dart';
 import 'package:romance_quotes/presentation/home_page/component/banner_image_item.dart';
@@ -18,7 +20,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: TitleAppBar(
           onFavorites: () {
-            Get.to(() => FavoritePage());
+            Get.to(() => const FavoritePage());
           },
           onSetting: () {},
         ),
@@ -30,41 +32,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             banner(),
-            Expanded(
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('categories')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  }
-                  if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                    List<DocumentSnapshot> documents = snapshot.data!.docs;
-                    return ListView.builder(
-                      itemCount: documents.length,
-                      itemBuilder: (context, index) {
-                        var document = documents[index];
-                        return CategoryTile(
-                          img: document['urlImage'],
-                          title: document['title'],
-                          subtitle: document['subtitle'],
-                          onTap: () {},
-                        );
-                      },
-                    );
-                  } else {
-                    // Trường hợp không có dữ liệu
-                    return Center(child: Text('No data available'));
-                  }
-                },
-              ),
-            ),
+            Expanded(child: category()),
           ],
         ),
       ),
@@ -72,72 +40,129 @@ class HomePage extends StatelessWidget {
   }
 
   Widget category() {
-    return Column(
-      children: [
-        CategoryTile(
-          img:
-              'https://th.bing.com/th/id/OIP.d5qYPeR2mVuhAQT0gPfTrAHaHk?rs=1&pid=ImgDetMain',
-          title: 'Lãng Mạn',
-          subtitle: 'Tuyển tập 10001 lãng mạn',
-          onTap: () {
-            Get.to(() => QuotesPage());
-          },
-        ),
-        CategoryTile(
-          img:
-              'https://th.bing.com/th/id/R.b4cb61859eef62c13d2ecd06b15e382d?rik=D571YJhbRgcCpQ&pid=ImgRaw&r=0',
-          title: 'Cuộc sống',
-          subtitle: 'Cuộc sống, lạc quan, yêu đời',
-          onTap: () {},
-        ),
-        CategoryTile(
-          img:
-              'https://th.bing.com/th/id/OIP.brreJ4Xo55xbIp51rrI9fAHaFc?rs=1&pid=ImgDetMain',
-          title: 'Học tập',
-          subtitle: 'Học, học nữa, học mãi',
-          onTap: () {},
-        ),
-      ],
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('categories').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+          List<DocumentSnapshot> documents = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: documents.length,
+            itemBuilder: (context, index) {
+              var document = documents[index];
+              final category = Category(
+                id: document['id'],
+                title: document['title'],
+                subtitle: document['subtitle'],
+                urlImage: document['urlImage'],
+              );
+              return CategoryTile(
+                category: category,
+                onTap: () {},
+              );
+            },
+          );
+        } else {
+          // Trường hợp không có dữ liệu
+          return const Center(child: Text('No data available'));
+        }
+      },
     );
   }
 
   Widget banner() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          BannerImageItem(
-            onTap: () {
-              Get.to(
-                () => DetailBanner(
-                  img: UrlImages.onepiece,
-                ),
-              );
-            },
-            url: UrlImages.onepiece,
-          ),
-          BannerImageItem(
-            onTap: () {},
-            url: UrlImages.bleach,
-          ),
-          BannerImageItem(
-            onTap: () {},
-            url: UrlImages.gintama,
-          ),
-          BannerImageItem(
-            onTap: () {},
-            url: UrlImages.onepiece,
-          ),
-          BannerImageItem(
-            onTap: () {},
-            url: UrlImages.bleach,
-          ),
-          BannerImageItem(
-            onTap: () {},
-            url: UrlImages.gintama,
-          ),
-        ],
+    return SizedBox(
+      height: 80,
+      child: StreamBuilder(
+        stream:
+            FirebaseFirestore.instance.collection('quote_images').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+            List<DocumentSnapshot> documents = snapshot.data!.docs;
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                var document = documents[index];
+                final quoteImage = QuoteImage(
+                  id: document['id'],
+                  url: document['url'],
+                );
+                return BannerImageItem(
+                  quoteImage: quoteImage,
+                  onTap: () {
+                    Get.to(
+                      () => DetailBanner(
+                        img: document['url'],
+                        onDownload: () {},
+                        onShare: () {},
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } else {
+            // Trường hợp không có dữ liệu
+            return const Center(child: Text('No data available'));
+          }
+        },
       ),
     );
   }
+
+  // Widget banner() {
+  //   return SingleChildScrollView(
+  //     scrollDirection: Axis.horizontal,
+  //     child: Row(
+  //       children: [
+  //         BannerImageItem(
+  //           onTap: () {
+  //             Get.to(
+  //               () => DetailBanner(
+  //                 img: UrlImages.onepiece,
+  //               ),
+  //             );
+  //           },
+  //           url: UrlImages.onepiece,
+  //         ),
+  //         BannerImageItem(
+  //           onTap: () {},
+  //           url: UrlImages.bleach,
+  //         ),
+  //         BannerImageItem(
+  //           onTap: () {},
+  //           url: UrlImages.gintama,
+  //         ),
+  //         BannerImageItem(
+  //           onTap: () {},
+  //           url: UrlImages.onepiece,
+  //         ),
+  //         BannerImageItem(
+  //           onTap: () {},
+  //           url: UrlImages.bleach,
+  //         ),
+  //         BannerImageItem(
+  //           onTap: () {},
+  //           url: UrlImages.gintama,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

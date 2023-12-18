@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:romance_quotes/domain/model/category.dart';
 
 class CategoryTile extends StatelessWidget {
-  final String? img;
-  final String title;
-  final String subtitle;
+  final Category category;
   final void Function()? onTap;
 
   const CategoryTile({
     super.key,
-    required this.img,
-    required this.title,
-    required this.subtitle,
+    required this.category,
     required this.onTap,
   });
 
@@ -22,17 +19,17 @@ class CategoryTile extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           radius: 30,
-          backgroundImage: NetworkImage(img.toString()),
+          backgroundImage: NetworkImage(category.urlImage.toString()),
         ),
         title: Text(
-          title,
-          style: TextStyle(
+          category.title,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: Text(
-          subtitle,
+          category.subtitle,
         ),
         onTap: onTap,
       ),

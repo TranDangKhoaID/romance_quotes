@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:romance_quotes/domain/model/quote_image.dart';
 
 class BannerImageItem extends StatelessWidget {
   final void Function()? onTap;
-  final String? url;
+  final QuoteImage quoteImage;
   const BannerImageItem({
     super.key,
     required this.onTap,
-    required this.url,
+    required this.quoteImage,
   });
 
   @override
@@ -14,10 +15,10 @@ class BannerImageItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         child: CircleAvatar(
           radius: 30,
-          backgroundImage: NetworkImage(url.toString()),
+          backgroundImage: NetworkImage(quoteImage.url.toString()),
         ),
       ),
     );
