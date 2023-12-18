@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:romance_quotes/app/constants/url_images.dart';
@@ -26,13 +27,45 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.all(5),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              banner(),
-              category(),
-            ],
-          ),
+        child: Column(
+          children: [
+            banner(),
+            Expanded(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('categories')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  }
+                  if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                    List<DocumentSnapshot> documents = snapshot.data!.docs;
+                    return ListView.builder(
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                        var document = documents[index];
+                        return CategoryTile(
+                          img: document['urlImage'],
+                          title: document['title'],
+                          subtitle: document['subtitle'],
+                          onTap: () {},
+                        );
+                      },
+                    );
+                  } else {
+                    // Trường hợp không có dữ liệu
+                    return Center(child: Text('No data available'));
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

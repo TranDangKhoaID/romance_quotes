@@ -33,8 +33,6 @@ class _QuotesPageState extends State<QuotesPage> {
                 QuotesData.quotesList()[index].content,
                 QuotesData.quotesList()[index].author,
               );
-              var quotes = await SQLHelper.getItems();
-              print(quotes);
             },
             onCopy: () {
               QuotesController.instance

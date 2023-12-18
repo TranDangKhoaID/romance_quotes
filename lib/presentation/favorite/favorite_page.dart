@@ -45,12 +45,18 @@ class _FavoritePageState extends State<FavoritePage> {
         ],
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
-          : journals.length == 0
-              ? Center(
-                  child: Text("Bạn chưa có câu nói yêu thích của mình!"),
+          : journals.isEmpty
+              ? const Center(
+                  child: Text(
+                    "Bạn chưa có câu nói yêu thích của mình!",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                 )
               : ListView.builder(
                   itemCount: journals.length,

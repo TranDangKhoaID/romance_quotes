@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "280525760346",
+    "project_id": "romancequotes-c784e",
+    "storage_bucket": "romancequotes-c784e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280525760346:android:8c44a73a6f34e17122f563",
+        "android_client_info": {
+          "package_name": "com.example.romance_quotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn_pw5q721i7NGjEY3pg8XJkLFzA2hWEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
