@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:romance_quotes/app/constants/url_images.dart';
+import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/domain/model/category.dart';
 import 'package:romance_quotes/domain/model/quote_image.dart';
 import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
@@ -110,7 +111,11 @@ class HomePage extends StatelessWidget {
                       () => DetailBanner(
                         img: document['url'],
                         onDownload: () {},
-                        onShare: () {},
+                        onShare: () {
+                          QuotesController.instance.shareQuoteImage(
+                            document['url'],
+                          );
+                        },
                       ),
                     );
                   },

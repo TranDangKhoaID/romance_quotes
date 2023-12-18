@@ -33,15 +33,15 @@ class DetailBanner extends StatelessWidget {
       backgroundColor: Colors.transparent,
       actions: [
         IconButton(
-          icon: Icon(Icons.download),
+          icon: const Icon(Icons.download),
           onPressed: onDownload,
         ),
-        Gap(10),
+        const Gap(10),
         IconButton(
-          icon: Icon(Icons.share),
+          icon: const Icon(Icons.share),
           onPressed: onShare,
         ),
-        Gap(10),
+        const Gap(10),
       ],
     );
   }

@@ -16,24 +16,7 @@ class QuotesController extends GetxController {
     Share.share(content);
   }
 
-  void saveFavorites(BuildContext context, Quotes quotes, int index) {
-    AppPreferences.instance.saveFavorites(quotes);
-    // Show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Yêu thích thành công!'),
-      ),
-    );
-  }
-
-  void deleteAllFavorites(BuildContext context) {
-    AppPreferences.instance.deleteAllFavorites();
-    // Show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Xóa tất cả thành công!'),
-      ),
-    );
-    Get.back();
+  void shareQuoteImage(String imageUrl) {
+    Share.share(imageUrl);
   }
 }
