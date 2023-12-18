@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:romance_quotes/app/controller/quotes_controller.dart';
-import 'package:romance_quotes/app/manager/color_manager.dart';
-import 'package:romance_quotes/app/storage/app_shared.dart';
-import 'package:romance_quotes/data/fake_data/quotes_data.dart';
+import 'package:romance_quotes/app/helpers/db_quotes.dart';
 import 'package:romance_quotes/presentation/favorite/component/favorite_item.dart';
 
-class FavoritePage extends StatelessWidget {
+class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
+
+  @override
+  State<FavoritePage> createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
+  List<Map<String, dynamic>> journals = [];
+  bool isLoading = true;
+
+  void _refreshJournals() async {
+    final data = await SQLHelper.getItems();
+    setState(() {
+      journals = data;
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshJournals();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +37,35 @@ class FavoritePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              QuotesController.instance.deleteAllFavorites(context);
+              SQLHelper.deleteAllItems();
+              _refreshJournals();
             },
             icon: Icon(Icons.delete_forever),
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: AppPreferences.instance.getFavorites().length,
-        itemBuilder: (context, index) {
-          return FavoriteItem(
-            index: index,
-            quotes: AppPreferences.instance.getFavorites()[index],
-            onTap: () {},
-          );
-        },
-      ),
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : journals.length == 0
+              ? Center(
+                  child: Text("Bạn chưa có câu nói yêu thích của mình!"),
+                )
+              : ListView.builder(
+                  itemCount: journals.length,
+                  itemBuilder: (context, index) {
+                    return FavoriteItem(
+                      index: index,
+                      content: journals[index]['content'],
+                      author: journals[index]['author'],
+                      onTap: () async {
+                        await SQLHelper.deleteItem(journals[index]['id']);
+                        _refreshJournals();
+                      },
+                    );
+                  },
+                ),
     );
   }
 }

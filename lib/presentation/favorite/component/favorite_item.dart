@@ -5,13 +5,17 @@ import 'package:romance_quotes/domain/model/quotes.dart';
 
 class FavoriteItem extends StatelessWidget {
   final int index;
-  final Quotes quotes;
+  //final Quotes quotes;
+  final String content;
+  final String? author;
   final void Function()? onTap;
   const FavoriteItem({
     super.key,
     required this.index,
-    required this.quotes,
+    //required this.quotes,
     required this.onTap,
+    required this.content,
+    required this.author,
   });
 
   @override
@@ -43,14 +47,14 @@ class FavoriteItem extends StatelessWidget {
               child: Column(
             children: [
               Text(
-                quotes.content,
+                content,
                 style: const TextStyle(
                   fontSize: 15,
                 ),
               ),
               const Gap(10),
               Text(
-                quotes.author ?? "",
+                author ?? "",
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 13,
