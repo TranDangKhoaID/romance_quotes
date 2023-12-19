@@ -44,25 +44,27 @@ class FavoriteItem extends StatelessWidget {
           ),
           const Gap(10),
           Expanded(
-              child: Column(
-            children: [
-              Text(
-                content,
-                style: const TextStyle(
-                  fontSize: 15,
+            child: Column(
+              children: [
+                Text(
+                  content,
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-              const Gap(10),
-              Text(
-                author ?? "",
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 13,
-                  fontStyle: FontStyle.italic,
+                const Gap(10),
+                Text(
+                  author ?? "",
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            ),
+          ),
           IconButton(
             onPressed: onTap,
             icon: const Icon(

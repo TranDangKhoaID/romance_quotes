@@ -2,6 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+class AppColors {
+  AppColors._();
+  static Color primary = Colors.deepPurple;
+}
+
 Color generateRandomColor() {
   Random random = Random();
   return Color.fromRGBO(

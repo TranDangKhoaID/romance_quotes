@@ -11,6 +11,7 @@ import 'package:romance_quotes/presentation/home_page/component/banner_image_ite
 import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
 import 'package:romance_quotes/presentation/quotes/quotes_page.dart';
+import 'package:romance_quotes/presentation/setting_page/setting_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,13 +24,15 @@ class HomePage extends StatelessWidget {
           onFavorites: () {
             Get.to(() => const FavoritePage());
           },
-          onSetting: () {},
+          onSetting: () {
+            Get.to(() => const SettingPage());
+          },
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: [
             banner(),
@@ -66,7 +69,13 @@ class HomePage extends StatelessWidget {
               );
               return CategoryTile(
                 category: category,
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                    () => QuotesPage(
+                      category: category,
+                    ),
+                  );
+                },
               );
             },
           );
@@ -87,7 +96,13 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: Text(
+                'Đang tải...',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
             );
           }
           if (snapshot.hasError) {
@@ -130,44 +145,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
-  // Widget banner() {
-  //   return SingleChildScrollView(
-  //     scrollDirection: Axis.horizontal,
-  //     child: Row(
-  //       children: [
-  //         BannerImageItem(
-  //           onTap: () {
-  //             Get.to(
-  //               () => DetailBanner(
-  //                 img: UrlImages.onepiece,
-  //               ),
-  //             );
-  //           },
-  //           url: UrlImages.onepiece,
-  //         ),
-  //         BannerImageItem(
-  //           onTap: () {},
-  //           url: UrlImages.bleach,
-  //         ),
-  //         BannerImageItem(
-  //           onTap: () {},
-  //           url: UrlImages.gintama,
-  //         ),
-  //         BannerImageItem(
-  //           onTap: () {},
-  //           url: UrlImages.onepiece,
-  //         ),
-  //         BannerImageItem(
-  //           onTap: () {},
-  //           url: UrlImages.bleach,
-  //         ),
-  //         BannerImageItem(
-  //           onTap: () {},
-  //           url: UrlImages.gintama,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

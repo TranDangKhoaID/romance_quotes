@@ -5,13 +5,13 @@ part 'quotes.g.dart';
 @JsonSerializable()
 class Quotes {
   final String id;
-  final String categoryID;
+  //final String categoryID;
   final String content;
   final String? author;
 
   Quotes({
     required this.id,
-    required this.categoryID,
+    //required this.categoryID,
     required this.content,
     required this.author,
   });

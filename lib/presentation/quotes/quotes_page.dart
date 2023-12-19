@@ -1,48 +1,83 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/app/helpers/db_quotes.dart';
-import 'package:romance_quotes/app/storages/app_shared.dart';
+import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/data/fake_data/quotes_data.dart';
+import 'package:romance_quotes/domain/model/category.dart';
+import 'package:romance_quotes/domain/model/quotes.dart';
 import 'package:romance_quotes/presentation/quotes/component/quotes_item.dart';
 
-class QuotesPage extends StatefulWidget {
-  const QuotesPage({super.key});
+class QuotesPage extends StatelessWidget {
+  final Category category;
+  const QuotesPage({
+    super.key,
+    required this.category,
+  });
 
-  @override
-  State<QuotesPage> createState() => _QuotesPageState();
-}
-
-class _QuotesPageState extends State<QuotesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primary,
         elevation: 0,
-        title: Text('Lãng mạn'),
+        title: Text(category.title),
       ),
-      body: ListView.builder(
-        itemCount: QuotesData.quotesList().length,
-        itemBuilder: (context, index) {
-          return QuotesItem(
-            quotes: QuotesData.quotesList()[index],
-            onFavorite: () async {
-              await SQLHelper.createItem(
-                QuotesData.quotesList()[index].id,
-                QuotesData.quotesList()[index].categoryID,
-                QuotesData.quotesList()[index].content,
-                QuotesData.quotesList()[index].author,
-              );
-            },
-            onCopy: () {
-              QuotesController.instance
-                  .copyQuotesContent(QuotesData.quotesList()[index].content);
-            },
-            onShare: () {
-              QuotesController.instance
-                  .shareQuotesContent(QuotesData.quotesList()[index].content);
-            },
-          );
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('categories')
+            .doc(category.id)
+            .collection('quotes')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: Text(
+                'Đang tải...',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+            List<DocumentSnapshot> documents = snapshot.data!.docs;
+            return ListView.builder(
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                var document = documents[index];
+                final quotes = Quotes(
+                  id: document['id'],
+                  content: document['content'],
+                  author: document['author'],
+                );
+                return QuotesItem(
+                  quotes: quotes,
+                  onFavorite: () {
+                    SQLHelper.createItem(
+                      quotes.id,
+                      quotes.content,
+                      quotes.author,
+                    );
+                  },
+                  onCopy: () {
+                    QuotesController.instance.copyQuotesContent(quotes.content);
+                  },
+                  onShare: () {
+                    QuotesController.instance
+                        .shareQuotesContent(quotes.content);
+                  },
+                );
+              },
+            );
+          } else {
+            // Trường hợp không có dữ liệu
+            return const Center(child: Text('No data available'));
+          }
         },
       ),
     );

@@ -5,7 +5,6 @@ class SQLHelper {
   static Future<void> createTables(sql.Database database) async {
     await database.execute('''CREATE TABLE quotes (
       id TEXT PRIMARY KEY NOT NULL,
-      categoryID TEXT,
       content TEXT,
       author TEXT
     )''');
@@ -16,7 +15,6 @@ class SQLHelper {
       'quotes.db',
       version: 1,
       onCreate: (sql.Database db, version) async {
-        print('...creating a tabls...');
         await createTables(db);
       },
     );
@@ -24,17 +22,11 @@ class SQLHelper {
 
   static Future<String> createItem(
     String id,
-    String categoryID,
     String content,
     String? author,
   ) async {
     final db = await SQLHelper.db();
-    final data = {
-      'id': id,
-      'categoryID': categoryID,
-      'content': content,
-      'author': author ?? ''
-    };
+    final data = {'id': id, 'content': content, 'author': author ?? ''};
 
     await db.insert(
       'quotes',

@@ -17,9 +17,14 @@ class CategoryTile extends StatelessWidget {
       margin: EdgeInsets.all(5),
       padding: EdgeInsets.all(5),
       child: ListTile(
-        leading: CircleAvatar(
-          radius: 30,
-          backgroundImage: NetworkImage(category.urlImage.toString()),
+        leading: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(),
+          child: Image.network(
+            category.urlImage.toString(),
+            fit: BoxFit.cover,
+          ),
         ),
         title: Text(
           category.title,

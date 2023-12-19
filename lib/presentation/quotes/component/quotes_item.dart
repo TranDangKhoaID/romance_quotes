@@ -29,13 +29,12 @@ class QuotesItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            child: Text(
-              quotes.content,
-              softWrap: true,
-              style: TextStyle(
-                fontSize: 17,
-              ),
+          Text(
+            quotes.content,
+            softWrap: true,
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 17,
             ),
           ),
           Gap(10),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:romance_quotes/app/helpers/db_quotes.dart';
+import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/presentation/favorite/component/favorite_item.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _FavoritePageState extends State<FavoritePage> {
       appBar: AppBar(
         title: Text('Yêu thích'),
         elevation: 0,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primary,
         actions: [
           IconButton(
             onPressed: () {

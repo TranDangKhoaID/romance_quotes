@@ -6,7 +6,6 @@ class QuotesData {
       10,
       (index) => Quotes(
         id: index.toString(),
-        categoryID: '1',
         content: 'This is a sample quote #$index',
         author: 'Author $index',
       ),
