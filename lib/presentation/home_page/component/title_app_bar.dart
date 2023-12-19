@@ -18,12 +18,8 @@ class TitleAppBar extends StatelessWidget {
         const Row(
           children: [
             CircleAvatar(
-              backgroundColor: Colors.red,
+              backgroundImage: AssetImage('assets/icon_app/app.png'),
               radius: 20,
-              child: Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
             ),
             Gap(10),
             Text(
