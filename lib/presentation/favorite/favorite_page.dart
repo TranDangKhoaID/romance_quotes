@@ -32,7 +32,7 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Yêu thích'),
+        title: const Text('Yêu thích'),
         elevation: 0,
         backgroundColor: AppColors.primary,
         actions: [
@@ -41,7 +41,7 @@ class _FavoritePageState extends State<FavoritePage> {
               SQLHelper.deleteAllItems();
               _refreshJournals();
             },
-            icon: Icon(Icons.delete_forever),
+            icon: const Icon(Icons.delete_forever),
           ),
         ],
       ),

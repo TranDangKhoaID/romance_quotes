@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
-import 'package:romance_quotes/domain/model/quotes.dart';
 
 class FavoriteItem extends StatelessWidget {
   final int index;

@@ -14,13 +14,13 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       child: ListTile(
         leading: Container(
           width: 80,
           height: 80,
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: Image.network(
             category.urlImage.toString(),
             fit: BoxFit.cover,

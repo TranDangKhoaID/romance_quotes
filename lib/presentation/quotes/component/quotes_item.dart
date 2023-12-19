@@ -19,8 +19,8 @@ class QuotesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
@@ -33,45 +33,43 @@ class QuotesItem extends StatelessWidget {
             quotes.content,
             softWrap: true,
             textAlign: TextAlign.justify,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 17,
             ),
           ),
-          Gap(10),
+          const Gap(10),
           Container(
             alignment: Alignment.center,
             child: Text(
               quotes.author ?? '',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,
                 fontSize: 13,
               ),
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: onFavorite,
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: onFavorite,
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
                 ),
-                Gap(10),
-                IconButton(
-                  onPressed: onCopy,
-                  icon: Icon(Icons.copy),
-                ),
-                Gap(10),
-                IconButton(
-                  onPressed: onShare,
-                  icon: Icon(Icons.share),
-                ),
-              ],
-            ),
+              ),
+              const Gap(10),
+              IconButton(
+                onPressed: onCopy,
+                icon: const Icon(Icons.copy),
+              ),
+              const Gap(10),
+              IconButton(
+                onPressed: onShare,
+                icon: const Icon(Icons.share),
+              ),
+            ],
           )
         ],
       ),

@@ -8,7 +8,7 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cài đặt'),
+        title: const Text('Cài đặt'),
         elevation: 0,
         backgroundColor: AppColors.primary,
       ),
@@ -23,7 +23,7 @@ class SettingPage extends StatelessWidget {
                 color: AppColors.primary,
               ),
               onTap: () {},
-              title: Text(
+              title: const Text(
                 "Đánh giá ứng dụng",
               ),
               trailing: const Icon(Icons.keyboard_arrow_right),
@@ -38,7 +38,7 @@ class SettingPage extends StatelessWidget {
                 color: AppColors.primary,
               ),
               onTap: () {},
-              title: Text(
+              title: const Text(
                 "Chia sẻ ứng dụng",
               ),
               trailing: const Icon(Icons.keyboard_arrow_right),
@@ -53,7 +53,7 @@ class SettingPage extends StatelessWidget {
                 color: AppColors.primary,
               ),
               onTap: () {},
-              title: Text(
+              title: const Text(
                 "Chính sách bảo mật",
               ),
               trailing: const Icon(Icons.keyboard_arrow_right),
@@ -68,7 +68,7 @@ class SettingPage extends StatelessWidget {
                 color: AppColors.primary,
               ),
               onTap: () {},
-              title: Text(
+              title: const Text(
                 "Các điều khoản và điều kiện",
               ),
               trailing: const Icon(Icons.keyboard_arrow_right),
@@ -87,10 +87,11 @@ class SettingPage extends StatelessWidget {
                 color: AppColors.primary,
               ),
               onTap: () {},
-              title: Text(
+              title: const Text(
                 "Liên hệ hỗ trợ",
               ),
-              subtitle: Text('Gửi email đến bộ phận hỗ trợ của chúng tôi'),
+              subtitle:
+                  const Text('Gửi email đến bộ phận hỗ trợ của chúng tôi'),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
             const Divider(

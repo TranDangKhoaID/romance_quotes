@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/app/helpers/db_quotes.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
-import 'package:romance_quotes/data/fake_data/quotes_data.dart';
 import 'package:romance_quotes/domain/model/category.dart';
 import 'package:romance_quotes/domain/model/quotes.dart';
 import 'package:romance_quotes/presentation/quotes/component/quotes_item.dart';
