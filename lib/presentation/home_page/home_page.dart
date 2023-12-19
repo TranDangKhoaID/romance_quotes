@@ -30,14 +30,11 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          children: [
-            banner(),
-            Expanded(child: category()),
-          ],
-        ),
+      body: Column(
+        children: [
+          banner(),
+          Expanded(child: category()),
+        ],
       ),
     );
   }

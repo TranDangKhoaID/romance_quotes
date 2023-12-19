@@ -14,8 +14,10 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: category.id == "0" ? Colors.pink : Colors.transparent,
+      ),
       child: ListTile(
         leading: Container(
           width: 80,
@@ -28,13 +30,16 @@ class CategoryTile extends StatelessWidget {
         ),
         title: Text(
           category.title,
-          style: const TextStyle(
-            color: Colors.black,
+          style: TextStyle(
+            color: category.id == "0" ? Colors.white : Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: Text(
           category.subtitle,
+          style: TextStyle(
+            color: category.id == "0" ? Colors.white : Colors.black45,
+          ),
         ),
         onTap: onTap,
       ),

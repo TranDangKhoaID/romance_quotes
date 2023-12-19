@@ -77,10 +77,6 @@ class SettingPage extends StatelessWidget {
               height: 1,
               color: Colors.black12,
             ),
-            const Divider(
-              height: 1,
-              color: Colors.black12,
-            ),
             ListTile(
               leading: Icon(
                 Icons.contact_support,
