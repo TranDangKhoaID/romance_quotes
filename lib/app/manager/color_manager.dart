@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
-  static Color primary = Colors.deepPurple;
+  static Color primary = Colors.pink.shade100;
 }
 
 Color generateRandomColor() {

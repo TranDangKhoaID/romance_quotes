@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/domain/model/category.dart';
@@ -10,6 +11,7 @@ import 'package:romance_quotes/presentation/home_page/component/banner_image_ite
 import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
 import 'package:romance_quotes/presentation/quotes/quotes_page.dart';
+import 'package:romance_quotes/presentation/quotes_images/quotes_images_page.dart';
 import 'package:romance_quotes/presentation/setting_page/setting_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,13 +28,16 @@ class HomePage extends StatelessWidget {
           onSetting: () {
             Get.to(() => const SettingPage());
           },
+          onQImages: () {
+            Get.to(() => const QuotesImagePage());
+          },
         ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Column(
         children: [
-          banner(),
+          //banner(),
           Expanded(child: category()),
         ],
       ),

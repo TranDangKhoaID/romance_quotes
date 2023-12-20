@@ -15,10 +15,9 @@ class DetailBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: appBar(),
+      appBar: appBar(context),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
         child: Image.network(
           img.toString(),
           fit: BoxFit.cover,
@@ -27,10 +26,10 @@ class DetailBanner extends StatelessWidget {
     );
   }
 
-  AppBar appBar() {
+  AppBar appBar(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       actions: [
         IconButton(
           icon: const Icon(Icons.download),

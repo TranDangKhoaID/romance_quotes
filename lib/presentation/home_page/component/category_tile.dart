@@ -13,36 +13,27 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: category.id == "0" ? Colors.pink : Colors.transparent,
+    return ListTile(
+      tileColor: category.id == "0" ? Colors.pink : Colors.transparent,
+      leading: CircleAvatar(
+        radius: 30,
+        backgroundImage: NetworkImage(category.urlImage.toString()),
       ),
-      child: ListTile(
-        leading: Container(
-          width: 80,
-          height: 80,
-          decoration: const BoxDecoration(),
-          child: Image.network(
-            category.urlImage.toString(),
-            fit: BoxFit.cover,
-          ),
+      title: Text(
+        category.title,
+        style: TextStyle(
+          color: category.id == "0" ? Colors.white : Colors.black,
+          fontWeight: FontWeight.bold,
         ),
-        title: Text(
-          category.title,
-          style: TextStyle(
-            color: category.id == "0" ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(
-          category.subtitle,
-          style: TextStyle(
-            color: category.id == "0" ? Colors.white : Colors.black45,
-          ),
-        ),
-        onTap: onTap,
       ),
+      subtitle: Text(
+        category.subtitle,
+        style: TextStyle(
+          color: category.id == "0" ? Colors.white : Colors.black45,
+        ),
+      ),
+      trailing: const Icon(Icons.keyboard_arrow_right),
+      onTap: onTap,
     );
   }
 }
