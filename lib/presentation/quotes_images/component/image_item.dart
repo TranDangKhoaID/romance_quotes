@@ -13,7 +13,6 @@ class ImageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
       child: GestureDetector(
         onTap: onTap,
         child: Image.network(

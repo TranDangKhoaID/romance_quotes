@@ -16,7 +16,10 @@ class QuotesImagePage extends StatelessWidget {
         title: const Text('Kho ảnh'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: image(),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: image(),
+      ),
     );
   }
 
@@ -44,8 +47,8 @@ class QuotesImagePage extends StatelessWidget {
             itemCount: documents.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 5.0,
-              mainAxisSpacing: 5.0,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
             ),
             itemBuilder: (context, index) {
               var document = documents[index];
