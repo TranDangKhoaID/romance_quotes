@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/domain/model/quotes.dart';
 
@@ -35,6 +36,7 @@ class QuotesItem extends StatelessWidget {
             textAlign: TextAlign.justify,
             style: const TextStyle(
               fontSize: 17,
+              wordSpacing: 0.5,
             ),
           ),
           const Gap(10),
