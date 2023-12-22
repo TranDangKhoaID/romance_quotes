@@ -60,15 +60,18 @@ class DetailQuotesItem extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Column(
                     children: [
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        width: 25,
-                        child: Image.asset(
-                          'assets/icon_like/like.png',
-                          fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          margin: EdgeInsets.all(5),
+                          width: 25,
+                          child: Image.asset(
+                            'assets/icon_like/like.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      Text('1000'),
+                      const Text('0'),
                     ],
                   ),
                 ),
