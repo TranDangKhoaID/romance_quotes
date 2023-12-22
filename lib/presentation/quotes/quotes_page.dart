@@ -65,6 +65,8 @@ class QuotesPage extends StatelessWidget {
                   onTap: () {
                     Get.to(
                       () => DetailQuotesPage(
+                        title: category.title,
+                        index: index,
                         quotes: quotes,
                         color: color,
                       ),

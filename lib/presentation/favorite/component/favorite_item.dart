@@ -23,9 +23,10 @@ class FavoriteItem extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(5),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
@@ -36,7 +37,7 @@ class FavoriteItem extends StatelessWidget {
             child: Text(
               '${index + 1}',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 color: Colors.grey[700],
               ),
             ),

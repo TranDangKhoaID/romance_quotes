@@ -6,12 +6,16 @@ import 'package:romance_quotes/domain/model/quotes.dart';
 import 'package:romance_quotes/presentation/detail_quotes/component/detail_quotes_item.dart';
 
 class DetailQuotesPage extends StatelessWidget {
+  final int index;
+  final String title;
   final Quotes quotes;
   final Color color;
   const DetailQuotesPage({
     super.key,
     required this.quotes,
     required this.color,
+    required this.index,
+    required this.title,
   });
 
   @override
@@ -20,6 +24,7 @@ class DetailQuotesPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 0,
+        title: Text('$title #${index + 1}'),
       ),
       body: SingleChildScrollView(
         child: Column(

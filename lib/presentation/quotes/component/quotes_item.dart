@@ -20,31 +20,25 @@ class QuotesItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            Stack(
-              children: [
-                Icon(
-                  Icons.quora_outlined,
-                  size: 55,
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
                   color: color,
+                  //width: 1,
                 ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 6,
-                  top: 0,
-                  child: Center(
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+              ),
+              child: Text(
+                '${index + 1}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
             ),
             const Gap(10),
             Expanded(
