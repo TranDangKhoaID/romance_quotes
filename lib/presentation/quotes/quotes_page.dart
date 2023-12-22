@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/app/helpers/db_quotes.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/domain/model/category.dart';
 import 'package:romance_quotes/domain/model/quotes.dart';
+import 'package:romance_quotes/presentation/detail_quotes/component/detail_quotes_item.dart';
+import 'package:romance_quotes/presentation/detail_quotes/detail_quotes.dart';
 import 'package:romance_quotes/presentation/quotes/component/quotes_item.dart';
 
 class QuotesPage extends StatelessWidget {
@@ -54,21 +57,18 @@ class QuotesPage extends StatelessWidget {
                   content: document['content'],
                   author: document['author'],
                 );
+                final color = generateRandomColor();
                 return QuotesItem(
                   quotes: quotes,
-                  onFavorite: () {
-                    SQLHelper.createItem(
-                      quotes.id,
-                      quotes.content,
-                      quotes.author,
+                  color: color,
+                  index: index,
+                  onTap: () {
+                    Get.to(
+                      () => DetailQuotesPage(
+                        quotes: quotes,
+                        color: color,
+                      ),
                     );
-                  },
-                  onCopy: () {
-                    QuotesController.instance.copyQuotesContent(quotes.content);
-                  },
-                  onShare: () {
-                    QuotesController.instance
-                        .shareQuotesContent(quotes.content);
                   },
                 );
               },

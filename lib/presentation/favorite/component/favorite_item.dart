@@ -34,7 +34,7 @@ class FavoriteItem extends StatelessWidget {
               ),
             ),
             child: Text(
-              index.toString(),
+              '${index + 1}',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.grey[700],
