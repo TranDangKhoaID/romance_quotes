@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:romance_quotes/app/controller/admob_service.dart';
 import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/domain/model/category.dart';
 import 'package:romance_quotes/domain/model/quote_image.dart';
@@ -13,8 +15,29 @@ import 'package:romance_quotes/presentation/quotes/quotes_page.dart';
 import 'package:romance_quotes/presentation/quotes_images/quotes_images_page.dart';
 import 'package:romance_quotes/presentation/setting_page/setting_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  BannerAd? _bannerAd;
+  @override
+  void initState() {
+    super.initState();
+    _createBannerAd();
+  }
+
+  void _createBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobService.bannerAdUnitID!,
+      listener: AdMobService.bannerAdListener,
+      request: const AdRequest(),
+    )..load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +63,13 @@ class HomePage extends StatelessWidget {
           Expanded(child: category()),
         ],
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? Container()
+          : Container(
+              margin: EdgeInsets.only(bottom: 12),
+              height: 52,
+              child: AdWidget(ad: _bannerAd!),
+            ),
     );
   }
 

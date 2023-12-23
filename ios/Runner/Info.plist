@@ -12,6 +12,8 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-8347334978438891~4859923901</string>
 	<key>CFBundleName</key>
 	<string>CâuHayLãngMạn</string>
 	<key>CFBundlePackageType</key>
