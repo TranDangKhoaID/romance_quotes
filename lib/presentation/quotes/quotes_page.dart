@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:romance_quotes/app/controller/quotes_controller.dart';
-import 'package:romance_quotes/app/helpers/db_quotes.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/domain/model/category.dart';
 import 'package:romance_quotes/domain/model/quotes.dart';
-import 'package:romance_quotes/presentation/detail_quotes/component/detail_quotes_item.dart';
 import 'package:romance_quotes/presentation/detail_quotes/detail_quotes.dart';
 import 'package:romance_quotes/presentation/quotes/component/quotes_item.dart';
 

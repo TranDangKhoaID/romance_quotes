@@ -12,13 +12,11 @@ class ImageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Image.network(
-          quoteImage.url,
-          fit: BoxFit.cover,
-        ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Image.network(
+        quoteImage.url,
+        fit: BoxFit.cover,
       ),
     );
   }

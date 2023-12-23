@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/domain/model/quotes.dart';
 
 class DetailQuotesItem extends StatelessWidget {
@@ -63,7 +62,7 @@ class DetailQuotesItem extends StatelessWidget {
                       InkWell(
                         onTap: () {},
                         child: Container(
-                          margin: EdgeInsets.all(5),
+                          margin: const EdgeInsets.all(5),
                           width: 25,
                           child: Image.asset(
                             'assets/icon_like/like.png',
