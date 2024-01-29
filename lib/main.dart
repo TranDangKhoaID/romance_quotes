@@ -12,7 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  MobileAds.instance.initialize();
+  await MobileAds.instance.initialize();
   AppShared.init();
   Get.put(QuotesController());
   runApp(const MyApp());

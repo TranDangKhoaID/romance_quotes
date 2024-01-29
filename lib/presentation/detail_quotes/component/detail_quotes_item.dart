@@ -54,27 +54,6 @@ class DetailQuotesItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          width: 25,
-                          child: Image.asset(
-                            'assets/icon_like/like.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      const Text('0'),
-                    ],
-                  ),
-                ),
-              ),
               IconButton(
                 onPressed: onFavorite,
                 icon: const Icon(

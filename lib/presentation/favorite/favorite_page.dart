@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:romance_quotes/app/controller/admob_service.dart';
 import 'package:romance_quotes/app/helpers/db_quotes.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
 import 'package:romance_quotes/presentation/favorite/component/favorite_item.dart';
@@ -11,6 +13,7 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
+  BannerAd? _bannerAd;
   List<Map<String, dynamic>> journals = [];
   bool isLoading = true;
 
@@ -22,10 +25,20 @@ class _FavoritePageState extends State<FavoritePage> {
     });
   }
 
+  void _createBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobService.bannerFavoritesAdUnitID!,
+      listener: AdMobService.bannerAdListener,
+      request: const AdRequest(),
+    )..load();
+  }
+
   @override
   void initState() {
     super.initState();
     _refreshJournals();
+    _createBannerAd();
   }
 
   @override
@@ -73,6 +86,17 @@ class _FavoritePageState extends State<FavoritePage> {
                     );
                   },
                 ),
+      bottomNavigationBar: _bannerAd == null
+          ? Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: const Text("Quảng cáo không khả dụng"),
+            )
+          : Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: AdWidget(ad: _bannerAd!),
+            ),
     );
   }
 }

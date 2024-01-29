@@ -24,19 +24,51 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   BannerAd? _bannerAd;
+  InterstitialAd? _interstitialAd;
   @override
   void initState() {
     super.initState();
     _createBannerAd();
+    _createInterstitialAd();
   }
 
   void _createBannerAd() {
     _bannerAd = BannerAd(
       size: AdSize.fullBanner,
-      adUnitId: AdMobService.bannerAdUnitID!,
+      adUnitId: AdMobService.bannerHomePageAdUnitID!,
       listener: AdMobService.bannerAdListener,
       request: const AdRequest(),
     )..load();
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: AdMobService.interstitialHomePageAdUnitID!,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (error) => _interstitialAd = null,
+      ),
+    );
+  }
+
+  _showInterstitialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+      );
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    } else {
+      _createInterstitialAd();
+    }
   }
 
   @override
@@ -59,15 +91,18 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          //banner(),
           Expanded(child: category()),
         ],
       ),
       bottomNavigationBar: _bannerAd == null
-          ? Container()
+          ? Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: const Text("Quảng cáo không khả dụng"),
+            )
           : Container(
-              margin: EdgeInsets.only(bottom: 12),
-              height: 52,
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
               child: AdWidget(ad: _bannerAd!),
             ),
     );
@@ -100,6 +135,7 @@ class _HomePageState extends State<HomePage> {
               return CategoryTile(
                 category: category,
                 onTap: () {
+                  _showInterstitialAd();
                   Get.to(
                     () => QuotesPage(
                       category: category,

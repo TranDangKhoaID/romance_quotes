@@ -1,8 +1,36 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:romance_quotes/app/constants/strings.dart';
+import 'package:romance_quotes/app/controller/admob_service.dart';
+import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/app/manager/color_manager.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
+
+  @override
+  State<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  BannerAd? _bannerAd;
+
+  void _createBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobService.bannerSettingAdUnitID!,
+      listener: AdMobService.bannerAdListener,
+      request: const AdRequest(),
+    )..load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _createBannerAd();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +80,11 @@ class SettingPage extends StatelessWidget {
                 Icons.privacy_tip,
                 color: AppColors.primary,
               ),
-              onTap: () {},
+              onTap: () {
+                QuotesController.instance.launchUrlWWeb(
+                  Constants.pathPolicyPrivacy,
+                );
+              },
               title: const Text(
                 "Chính sách bảo mật",
               ),
@@ -67,7 +99,11 @@ class SettingPage extends StatelessWidget {
                 Icons.bookmark,
                 color: AppColors.primary,
               ),
-              onTap: () {},
+              onTap: () {
+                QuotesController.instance.launchUrlWWeb(
+                  Constants.pathTermsAndConditions,
+                );
+              },
               title: const Text(
                 "Các điều khoản và điều kiện",
               ),
@@ -82,7 +118,11 @@ class SettingPage extends StatelessWidget {
                 Icons.contact_support,
                 color: AppColors.primary,
               ),
-              onTap: () {},
+              onTap: () {
+                QuotesController.instance.launchEmail(
+                  Constants.emailContant,
+                );
+              },
               title: const Text(
                 "Liên hệ hỗ trợ",
               ),
@@ -97,6 +137,17 @@ class SettingPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: const Text("Quảng cáo không khả dụng"),
+            )
+          : Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: AdWidget(ad: _bannerAd!),
+            ),
     );
   }
 }

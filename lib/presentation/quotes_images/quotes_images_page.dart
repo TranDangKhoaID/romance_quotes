@@ -1,13 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:romance_quotes/app/controller/admob_service.dart';
 import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/domain/model/quote_image.dart';
 import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
 import 'package:romance_quotes/presentation/quotes_images/component/image_item.dart';
 
-class QuotesImagePage extends StatelessWidget {
+class QuotesImagePage extends StatefulWidget {
   const QuotesImagePage({super.key});
+
+  @override
+  State<QuotesImagePage> createState() => _QuotesImagePageState();
+}
+
+class _QuotesImagePageState extends State<QuotesImagePage> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _createBannerAd();
+  }
+
+  void _createBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobService.bannerImageQuotesAdUnitID!,
+      listener: AdMobService.bannerAdListener,
+      request: const AdRequest(),
+    )..load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +44,17 @@ class QuotesImagePage extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: image(),
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: const Text("Quảng cáo không khả dụng"),
+            )
+          : Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 55,
+              child: AdWidget(ad: _bannerAd!),
+            ),
     );
   }
 
