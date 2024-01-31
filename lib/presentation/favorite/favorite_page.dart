@@ -42,10 +42,19 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yêu thích'),
+        title: const Text(
+          'Yêu thích',
+          semanticsLabel: 'Favorite Page Title',
+        ),
         elevation: 0,
         backgroundColor: AppColors.primary,
         actions: [
@@ -90,7 +99,10 @@ class _FavoritePageState extends State<FavoritePage> {
           ? Container(
               margin: const EdgeInsets.only(bottom: 10),
               height: 55,
-              child: const Text("Quảng cáo không khả dụng"),
+              child: const Text(
+                "Quảng cáo không khả dụng",
+                semanticsLabel: 'No Ad Available Label',
+              ),
             )
           : Container(
               margin: const EdgeInsets.only(bottom: 10),

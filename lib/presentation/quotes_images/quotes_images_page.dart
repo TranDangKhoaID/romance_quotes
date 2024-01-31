@@ -24,6 +24,12 @@ class _QuotesImagePageState extends State<QuotesImagePage> {
     _createBannerAd();
   }
 
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
   void _createBannerAd() {
     _bannerAd = BannerAd(
       size: AdSize.fullBanner,
@@ -37,7 +43,10 @@ class _QuotesImagePageState extends State<QuotesImagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kho ảnh'),
+        title: const Text(
+          'Kho ảnh',
+          semanticsLabel: 'Quotes Image Title',
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Container(
@@ -48,7 +57,10 @@ class _QuotesImagePageState extends State<QuotesImagePage> {
           ? Container(
               margin: const EdgeInsets.only(bottom: 10),
               height: 55,
-              child: const Text("Quảng cáo không khả dụng"),
+              child: const Text(
+                "Quảng cáo không khả dụng",
+                semanticsLabel: 'No Ad Available Label',
+              ),
             )
           : Container(
               margin: const EdgeInsets.only(bottom: 10),
@@ -98,10 +110,8 @@ class _QuotesImagePageState extends State<QuotesImagePage> {
                     () => DetailBanner(
                       img: quoteImage.url,
                       onDownload: () {},
-                      onShare: () {
-                        QuotesController.instance
-                            .shareQuoteImage(quoteImage.url);
-                      },
+                      onShare: () => QuotesController.instance
+                          .shareQuoteImage(quoteImage.url),
                     ),
                   );
                 },
@@ -110,7 +120,12 @@ class _QuotesImagePageState extends State<QuotesImagePage> {
           );
         } else {
           // Trường hợp không có dữ liệu
-          return const Center(child: Text('No data available'));
+          return const Center(
+            child: Text(
+              'No data available',
+              semanticsLabel: 'No data available',
+            ),
+          );
         }
       },
     );

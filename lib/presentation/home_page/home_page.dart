@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:romance_quotes/app/controller/admob_service.dart';
-import 'package:romance_quotes/app/controller/quotes_controller.dart';
 import 'package:romance_quotes/domain/model/category.dart';
-import 'package:romance_quotes/domain/model/quote_image.dart';
-import 'package:romance_quotes/presentation/detail_banner/detail_banner.dart';
 import 'package:romance_quotes/presentation/favorite/favorite_page.dart';
-import 'package:romance_quotes/presentation/home_page/component/banner_image_item.dart';
 import 'package:romance_quotes/presentation/home_page/component/category_tile.dart';
 import 'package:romance_quotes/presentation/home_page/component/title_app_bar.dart';
 import 'package:romance_quotes/presentation/quotes/quotes_page.dart';
@@ -30,6 +26,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _createBannerAd();
     _createInterstitialAd();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
+    super.dispose();
   }
 
   void _createBannerAd() {
@@ -89,16 +92,15 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Column(
-        children: [
-          Expanded(child: category()),
-        ],
-      ),
+      body: category(),
       bottomNavigationBar: _bannerAd == null
           ? Container(
               margin: const EdgeInsets.only(bottom: 10),
               height: 55,
-              child: const Text("Quảng cáo không khả dụng"),
+              child: const Text(
+                "Quảng cáo không khả dụng",
+                semanticsLabel: 'No Ad Available Label',
+              ),
             )
           : Container(
               margin: const EdgeInsets.only(bottom: 10),
@@ -147,68 +149,13 @@ class _HomePageState extends State<HomePage> {
           );
         } else {
           // Trường hợp không có dữ liệu
-          return const Center(child: Text('No data available'));
+          return const Center(
+              child: Text(
+            'No data available',
+            semanticsLabel: 'No data available',
+          ));
         }
       },
-    );
-  }
-
-  Widget banner() {
-    return SizedBox(
-      height: 80,
-      child: StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection('quote_images').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Text(
-                'Đang tải...',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-            List<DocumentSnapshot> documents = snapshot.data!.docs;
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: documents.length,
-              itemBuilder: (context, index) {
-                var document = documents[index];
-                final quoteImage = QuoteImage(
-                  id: document['id'],
-                  url: document['url'],
-                );
-                return BannerImageItem(
-                  quoteImage: quoteImage,
-                  onTap: () {
-                    Get.to(
-                      () => DetailBanner(
-                        img: document['url'],
-                        onDownload: () {},
-                        onShare: () {
-                          QuotesController.instance.shareQuoteImage(
-                            document['url'],
-                          );
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          } else {
-            // Trường hợp không có dữ liệu
-            return const Center(child: Text('No data available'));
-          }
-        },
-      ),
     );
   }
 }

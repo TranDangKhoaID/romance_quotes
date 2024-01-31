@@ -31,115 +31,124 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cài đặt'),
+        title: const Text(
+          'Cài đặt',
+          semanticsLabel: 'Setting Page Title',
+        ),
         elevation: 0,
         backgroundColor: AppColors.primary,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            ListTile(
-              leading: Icon(
-                Icons.rate_review,
-                color: AppColors.primary,
-              ),
-              onTap: () {},
-              title: const Text(
-                "Đánh giá ứng dụng",
-              ),
-              trailing: const Icon(Icons.keyboard_arrow_right),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          ListTile(
+            leading: Icon(
+              Icons.rate_review,
+              color: AppColors.primary,
             ),
-            const Divider(
-              height: 1,
-              color: Colors.black12,
+            onTap: () {},
+            title: const Text(
+              "Đánh giá ứng dụng",
             ),
-            ListTile(
-              leading: Icon(
-                Icons.share,
-                color: AppColors.primary,
-              ),
-              onTap: () {},
-              title: const Text(
-                "Chia sẻ ứng dụng",
-              ),
-              trailing: const Icon(Icons.keyboard_arrow_right),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          const Divider(
+            height: 1,
+            color: Colors.black12,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.share,
+              color: AppColors.primary,
             ),
-            const Divider(
-              height: 1,
-              color: Colors.black12,
+            onTap: () {},
+            title: const Text(
+              "Chia sẻ ứng dụng",
             ),
-            ListTile(
-              leading: Icon(
-                Icons.privacy_tip,
-                color: AppColors.primary,
-              ),
-              onTap: () {
-                QuotesController.instance.launchUrlWWeb(
-                  Constants.pathPolicyPrivacy,
-                );
-              },
-              title: const Text(
-                "Chính sách bảo mật",
-              ),
-              trailing: const Icon(Icons.keyboard_arrow_right),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          const Divider(
+            height: 1,
+            color: Colors.black12,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.privacy_tip,
+              color: AppColors.primary,
             ),
-            const Divider(
-              height: 1,
-              color: Colors.black12,
+            onTap: () {
+              QuotesController.instance.launchUrlWWeb(
+                Constants.pathPolicyPrivacy,
+              );
+            },
+            title: const Text(
+              "Chính sách bảo mật",
             ),
-            ListTile(
-              leading: Icon(
-                Icons.bookmark,
-                color: AppColors.primary,
-              ),
-              onTap: () {
-                QuotesController.instance.launchUrlWWeb(
-                  Constants.pathTermsAndConditions,
-                );
-              },
-              title: const Text(
-                "Các điều khoản và điều kiện",
-              ),
-              trailing: const Icon(Icons.keyboard_arrow_right),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          const Divider(
+            height: 1,
+            color: Colors.black12,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.bookmark,
+              color: AppColors.primary,
             ),
-            const Divider(
-              height: 1,
-              color: Colors.black12,
+            onTap: () {
+              QuotesController.instance.launchUrlWWeb(
+                Constants.pathTermsAndConditions,
+              );
+            },
+            title: const Text(
+              "Các điều khoản và điều kiện",
             ),
-            ListTile(
-              leading: Icon(
-                Icons.contact_support,
-                color: AppColors.primary,
-              ),
-              onTap: () {
-                QuotesController.instance.launchEmail(
-                  Constants.emailContant,
-                );
-              },
-              title: const Text(
-                "Liên hệ hỗ trợ",
-              ),
-              subtitle:
-                  const Text('Gửi email đến bộ phận hỗ trợ của chúng tôi'),
-              trailing: const Icon(Icons.keyboard_arrow_right),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          const Divider(
+            height: 1,
+            color: Colors.black12,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.contact_support,
+              color: AppColors.primary,
             ),
-            const Divider(
-              height: 1,
-              color: Colors.black12,
+            onTap: () {
+              QuotesController.instance.launchEmail(
+                Constants.emailContant,
+              );
+            },
+            title: const Text(
+              "Liên hệ hỗ trợ",
             ),
-          ],
-        ),
+            subtitle: const Text('Gửi email đến bộ phận hỗ trợ của chúng tôi'),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          const Divider(
+            height: 1,
+            color: Colors.black12,
+          ),
+        ],
       ),
       bottomNavigationBar: _bannerAd == null
           ? Container(
               margin: const EdgeInsets.only(bottom: 10),
               height: 55,
-              child: const Text("Quảng cáo không khả dụng"),
+              child: const Text(
+                "Quảng cáo không khả dụng",
+                semanticsLabel: 'No data available',
+              ),
             )
           : Container(
               margin: const EdgeInsets.only(bottom: 10),

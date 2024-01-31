@@ -33,6 +33,12 @@ class _DetailQuotesPageState extends State<DetailQuotesPage> {
     _createBannerAd();
   }
 
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
   void _createBannerAd() {
     _bannerAd = BannerAd(
       size: AdSize.fullBanner,
@@ -48,38 +54,42 @@ class _DetailQuotesPageState extends State<DetailQuotesPage> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 0,
-        title: Text('${widget.title} #${widget.index + 1}'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            DetailQuotesItem(
-              quotes: widget.quotes,
-              color: widget.color,
-              onFavorite: () {
-                SQLHelper.createItem(
-                  widget.quotes.id,
-                  widget.quotes.content,
-                  widget.quotes.author,
-                );
-              },
-              onCopy: () {
-                QuotesController.instance
-                    .copyQuotesContent(widget.quotes.content);
-              },
-              onShare: () {
-                QuotesController.instance
-                    .shareQuotesContent(widget.quotes.content);
-              },
-            ),
-          ],
+        title: Text(
+          '${widget.title} #${widget.index + 1}',
+          semanticsLabel: 'Detail Quotes Page Title',
         ),
+      ),
+      body: Column(
+        children: [
+          DetailQuotesItem(
+            quotes: widget.quotes,
+            color: widget.color,
+            onFavorite: () {
+              SQLHelper.createItem(
+                widget.quotes.id,
+                widget.quotes.content,
+                widget.quotes.author,
+              );
+            },
+            onCopy: () {
+              QuotesController.instance
+                  .copyQuotesContent(widget.quotes.content);
+            },
+            onShare: () {
+              QuotesController.instance
+                  .shareQuotesContent(widget.quotes.content);
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: _bannerAd == null
           ? Container(
               margin: const EdgeInsets.only(bottom: 10),
               height: 55,
-              child: const Text("Quảng cáo không khả dụng"),
+              child: const Text(
+                "Quảng cáo không khả dụng",
+                semanticsLabel: 'No Ad Available Label',
+              ),
             )
           : Container(
               margin: const EdgeInsets.only(bottom: 10),

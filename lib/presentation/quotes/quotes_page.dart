@@ -31,6 +31,13 @@ class _QuotesPageState extends State<QuotesPage> {
     _createInterstitialAd();
   }
 
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
+    super.dispose();
+  }
+
   void _createBannerAd() {
     _bannerAd = BannerAd(
       size: AdSize.fullBanner,
@@ -76,7 +83,10 @@ class _QuotesPageState extends State<QuotesPage> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 0,
-        title: Text(widget.category.title),
+        title: Text(
+          widget.category.title,
+          semanticsLabel: 'Quotes Page Title',
+        ),
       ),
       body: Column(
         children: [
@@ -85,7 +95,10 @@ class _QuotesPageState extends State<QuotesPage> {
                   alignment: Alignment.center,
                   margin: const EdgeInsets.only(bottom: 10),
                   height: 55,
-                  child: const Text("Quảng cáo không khả dụng"),
+                  child: const Text(
+                    "Quảng cáo không khả dụng",
+                    semanticsLabel: 'No Ad Available Label',
+                  ),
                 )
               : Container(
                   margin: const EdgeInsets.only(bottom: 10),
@@ -112,7 +125,11 @@ class _QuotesPageState extends State<QuotesPage> {
                   );
                 }
                 if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return Center(
+                      child: Text(
+                    'Error: ${snapshot.error}',
+                    semanticsLabel: 'Data error',
+                  ));
                 }
                 if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                   List<DocumentSnapshot> documents = snapshot.data!.docs;
@@ -146,7 +163,12 @@ class _QuotesPageState extends State<QuotesPage> {
                   );
                 } else {
                   // Trường hợp không có dữ liệu
-                  return const Center(child: Text('No data available'));
+                  return const Center(
+                    child: Text(
+                      'No data available',
+                      semanticsLabel: 'No data available',
+                    ),
+                  );
                 }
               },
             ),
