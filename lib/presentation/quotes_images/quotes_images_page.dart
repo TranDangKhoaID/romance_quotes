@@ -109,7 +109,12 @@ class _QuotesImagePageState extends State<QuotesImagePage> {
                   Get.to(
                     () => DetailBanner(
                       img: quoteImage.url,
-                      onDownload: () {},
+                      onDownload: () {
+                        QuotesController.instance.downloadQuoteImage(
+                          quoteImage.url,
+                          context,
+                        );
+                      },
                       onShare: () => QuotesController.instance
                           .shareQuoteImage(quoteImage.url),
                     ),

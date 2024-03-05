@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
         useMaterial3: true,
       ),
-      //builder: EasyLoading.init(),
       home: const HomePage(),
       builder: EasyLoading.init(),
     );
