@@ -23,73 +23,91 @@ class AdMobService {
   );
   static String? get bannerHomePageAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/3819709940';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/5484925658';
+      return 'ca-app-pub-8347334978438891/4007588188';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/5484925658';
+      // }
     }
     return null;
   }
 
   static String? get bannerQuotesAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/3841471222';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/2676563369';
+      return 'ca-app-pub-8347334978438891/3689584483';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/2676563369';
+      // }
     }
     return null;
   }
 
   static String? get bannerDetailQuotesAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/9179172780';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/4345648501';
+      return 'ca-app-pub-8347334978438891/6202506683';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/4345648501';
+      // }
     }
     return null;
   }
 
   static String? get bannerImageQuotesAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/6584799033';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/7472189500';
+      return 'ca-app-pub-8347334978438891/8311355773';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/7472189500';
+      // }
     }
     return null;
   }
 
   static String? get bannerFavoritesAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/2128363481';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/4231782649';
+      return 'ca-app-pub-8347334978438891/7268176347';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/4231782649';
+      // }
     }
     return null;
   }
 
   static String? get bannerSettingAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/7663761190';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/8987601091';
+      return 'ca-app-pub-8347334978438891/1993359433';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/8987601091';
+      // }
+    }
+    return null;
+  }
+
+  static String? get bannerDetailImageAdUnitID {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-8347334978438891/1981751147';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/8987601091';
+      // }
     }
     return null;
   }
 
   //interstitial ad
-  static String? get interstitialHomePageAdUnitID {
+  static String? get interstitialImageQuotesUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/3907603186';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/9327450825';
+      return 'ca-app-pub-8347334978438891/4031638917';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/9327450825';
+      // }
     }
     return null;
   }
 
   static String? get interstitialQuotesPageAdUnitID {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-8347334978438891/5037597851';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8347334978438891/7851463453';
+      return 'ca-app-pub-8347334978438891/3193199966';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-8347334978438891/7851463453';
+      // }
     }
     return null;
   }
@@ -98,8 +116,9 @@ class AdMobService {
   static String? get interstitialAdUnitID {
     if (Platform.isAndroid) {
       return 'ca-app-pub-3940256099942544/1033173712';
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/1033173712';
+      // } else if (Platform.isIOS) {
+      //   return 'ca-app-pub-3940256099942544/1033173712';
+      // }
     }
     return null;
   }

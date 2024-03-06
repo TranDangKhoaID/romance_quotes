@@ -26,16 +26,19 @@ class DetailQuotesPage extends StatefulWidget {
 
 class _DetailQuotesPageState extends State<DetailQuotesPage> {
   BannerAd? _bannerAd;
+  InterstitialAd? _interstitialAd;
 
   @override
   void initState() {
     super.initState();
     _createBannerAd();
+    _createInterstitialAd();
   }
 
   @override
   void dispose() {
     _bannerAd?.dispose();
+    _interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -48,6 +51,36 @@ class _DetailQuotesPageState extends State<DetailQuotesPage> {
     )..load();
   }
 
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: AdMobService.interstitialQuotesPageAdUnitID!,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _interstitialAd = ad,
+        onAdFailedToLoad: (error) => _interstitialAd = null,
+      ),
+    );
+  }
+
+  _showInterstitialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+      );
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    } else {
+      _createInterstitialAd();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +90,13 @@ class _DetailQuotesPageState extends State<DetailQuotesPage> {
         title: Text(
           '${widget.title} #${widget.index + 1}',
           semanticsLabel: 'Detail Quotes Page Title',
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            _showInterstitialAd();
+            Navigator.of(context).pop();
+          },
         ),
       ),
       body: Column(

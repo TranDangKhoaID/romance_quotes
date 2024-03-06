@@ -27,7 +27,7 @@ class QuotesController extends GetxController {
       builder: (context) {
         return Container(
           alignment: Alignment.center,
-          child: CircularProgressIndicator(),
+          child: const CircularProgressIndicator(),
         );
       },
     );

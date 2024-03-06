@@ -34,7 +34,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8347334978438891~9509615354" />
+            android:value="ca-app-pub-8347334978438891~3007058209" />
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
