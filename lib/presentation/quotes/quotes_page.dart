@@ -88,93 +88,87 @@ class _QuotesPageState extends State<QuotesPage> {
           semanticsLabel: 'Quotes Page Title',
         ),
       ),
-      body: Column(
-        children: [
-          _bannerAd == null
-              ? Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(bottom: 10),
-                  height: 55,
-                  child: const Text(
-                    "Quảng cáo không khả dụng",
-                    semanticsLabel: 'No Ad Available Label',
-                  ),
-                )
-              : Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  height: 55,
-                  child: AdWidget(ad: _bannerAd!),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('categories')
+            .doc(widget.category.id)
+            .collection('quotes')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: Text(
+                'Đang tải...',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
                 ),
-          Expanded(
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('categories')
-                  .doc(widget.category.id)
-                  .collection('quotes')
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: Text(
-                      'Đang tải...',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  );
-                }
-                if (snapshot.hasError) {
-                  return Center(
-                      child: Text(
-                    'Error: ${snapshot.error}',
-                    semanticsLabel: 'Data error',
-                  ));
-                }
-                if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                  List<DocumentSnapshot> documents = snapshot.data!.docs;
-                  return ListView.builder(
-                    itemCount: documents.length,
-                    itemBuilder: (context, index) {
-                      var document = documents[index];
-                      final quotes = Quotes(
-                        id: document['id'],
-                        content: document['content'],
-                        author: document['author'],
-                      );
-                      final color = generateRandomColor();
-                      return QuotesItem(
+              ),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+                child: Text(
+              'Error: ${snapshot.error}',
+              semanticsLabel: 'Data error',
+            ));
+          }
+          if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+            List<DocumentSnapshot> documents = snapshot.data!.docs;
+            return ListView.builder(
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                var document = documents[index];
+                final quotes = Quotes(
+                  id: document['id'],
+                  content: document['content'],
+                  author: document['author'],
+                );
+                final color = generateRandomColor();
+                return QuotesItem(
+                  quotes: quotes,
+                  color: color,
+                  index: index,
+                  onTap: () {
+                    _showInterstitialAd();
+                    Get.to(
+                      () => DetailQuotesPage(
+                        title: widget.category.title,
+                        index: index,
                         quotes: quotes,
                         color: color,
-                        index: index,
-                        onTap: () {
-                          _showInterstitialAd();
-                          Get.to(
-                            () => DetailQuotesPage(
-                              title: widget.category.title,
-                              index: index,
-                              quotes: quotes,
-                              color: color,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  );
-                } else {
-                  // Trường hợp không có dữ liệu
-                  return const Center(
-                    child: Text(
-                      'No data available',
-                      semanticsLabel: 'No data available',
-                    ),
-                  );
-                }
+                      ),
+                    );
+                  },
+                );
               },
-            ),
-          ),
-        ],
+            );
+          } else {
+            // Trường hợp không có dữ liệu
+            return const Center(
+              child: Text(
+                'No data available',
+                semanticsLabel: 'No data available',
+              ),
+            );
+          }
+        },
       ),
+      bottomNavigationBar: _bannerAd == null
+          ? Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 50,
+              child: const Text(
+                "Quảng cáo không khả dụng",
+                semanticsLabel: 'No Ad Available Label',
+              ),
+            )
+          : Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              height: 50,
+              child: AdWidget(ad: _bannerAd!),
+            ),
     );
   }
 }
